@@ -1,2 +1,3 @@
-# first_pico_test
-My first experiments with the rpi pico
+# MotorControlDriver
+The software that shall eventually run my motor controller via SBUS signal.
+
