@@ -170,19 +170,13 @@ int main() {
 		button_last_state = button_state;
 		button_state = gpio_get(ENABLE_BUTTON);
 		if (button_state && !(button_last_state)) {
-			if (motor_elabeld) {
-				printf("disabling motor");
-				motor_elabeld = false;
-			} else {
-				printf("enabling motor");
-				motor_elabeld = true;
-			}
+			motor_elabeld != motor_elabeld;
 			state_change = true;
 		}
 		if (state_change) {
 			state_change = false;
 			pwm_set_enabled(in_pwm_slice, motor_elabeld);
-			gpio_put(NSLEEP, !motor_elabeld);
+			gpio_put(NSLEEP, motor_elabeld);
 			gpio_put(ENABLE_LED, motor_elabeld);
 			if (motor_elabeld) {
 				printf("Motor enabled\n");
