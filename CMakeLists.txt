@@ -17,4 +17,6 @@ target_link_libraries(MotorControlTest
 	pico_stdlib
 	hardware_adc
 	hardware_pwm
+	hardware_irq
+	hardware_dma
 )
