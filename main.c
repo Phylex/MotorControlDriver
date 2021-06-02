@@ -8,6 +8,7 @@
 #include "hardware/dma.h"
 
 #define CAPTURE_DEPTH 512
+#define OFFSET_DEPTH 64
 
 // define the pin constants
 const uint ENABLE_BUTTON = 3;
@@ -34,6 +35,10 @@ bool state_change = false;
 volatile uint8_t adc_buf[CAPTURE_DEPTH];
 volatile uint adc_chan = 0;
 volatile float Current = 0;
+volatile float current_offset_buf[OFFSET_DEPTH];
+volatile uint offset_buf_fill = 0;
+volatile uint next_offset_buf_pos = 0;
+float Current_offset = 0;
 volatile float pot_setpoint = 0;
 volatile bool current_captured = false;
 volatile bool setpoint_captured = false;
@@ -206,7 +211,18 @@ int main() {
 			setpoint_captured = false;
 		}
 		if (current_captured) {
-			printf("Current through the Motor: %f A\n", Current);
+			if (!motor_elabeld) {
+				current_offset_buf[next_offset_buf_pos] = Current;
+				if (offset_buf_fill < OFFSET_DEPTH)
+					offset_buf_fill++;
+				next_offset_buf_pos = (next_offset_buf_pos + 1) % OFFSET_DEPTH;
+				float offset_sum = 0;
+				for (int i=0; i < offset_buf_fill; i++) {
+					offset_sum += current_offset_buf[i];
+				}
+				Current_offset = offset_sum/(float)(offset_buf_fill);
+			}
+			printf("Current through the Motor: %f A\n", Current-Current_offset);
 			current_captured = false;
 		}
 	}
