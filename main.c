@@ -51,7 +51,7 @@ void adc_handler() {
 	}
 	float adc_mean = (float)(adc_sum)/CAPTURE_DEPTH;
 	if (adc_chan == SO_ADC_CHAN){
-		Current = adc_mean * conversion_factor;
+		Current = adc_mean * conversion_factor/(0.003*20.);
 		current_captured = true;
 		adc_chan = POT_ADC_CHAN;
 		adc_select_input(adc_chan);
@@ -206,7 +206,7 @@ int main() {
 			setpoint_captured = false;
 		}
 		if (current_captured) {
-			printf("Current through the Motor: %f A\n");
+			printf("Current through the Motor: %f A\n", Current);
 			current_captured = false;
 		}
 	}
