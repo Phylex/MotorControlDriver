@@ -51,11 +51,13 @@ void adc_handler() {
 	}
 	float adc_mean = (float)(adc_sum)/CAPTURE_DEPTH;
 	if (adc_chan == SO_ADC_CHAN){
-		Current = adc_mean;
+		Current = (adc_mean * conversion_factor)/(20*0.003);
+		current_captured = true;
 		adc_chan = POT_ADC_CHAN;
 		adc_select_input(adc_chan);
 	} else if (adc_chan == POT_ADC_CHAN) {
 		pot_setpoint= adc_mean;
+		setpoint_captured = true;
 		adc_chan = SO_ADC_CHAN;
 		adc_select_input(adc_chan);
 	}
@@ -195,6 +197,12 @@ int main() {
 				pwm_set_chan_level(in_pwm_slice, in1_pwm_channel, (uint16_t)pwm_val);
 				pwm_set_chan_level(in_pwm_slice, in2_pwm_channel, 0);
 			}
+			printf("PWM set to %f\%\n", (float)pwm_val*(100./128.));
+			setpoint_captured = false;
+		}
+		if (current_captured) {
+			printf("Current through the Motor: %f A\n");
+			current_captured = false;
 		}
 	}
 }
