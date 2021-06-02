@@ -172,10 +172,11 @@ int main() {
 		if (button_state && !(button_last_state)) {
 			if (motor_elabeld) {
 				printf("disabling motor");
+				motor_elabeld = false;
 			} else {
 				printf("enabling motor");
+				motor_elabeld = true;
 			}
-			motor_elabeld != motor_elabeld;
 			state_change = true;
 		}
 		if (state_change) {
