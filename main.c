@@ -7,7 +7,7 @@
 #include "hardware/irq.h"
 #include "hardware/dma.h"
 
-#define CAPTURE_DEPTH 1024
+#define CAPTURE_DEPTH 512
 
 // define the pin constants
 const uint ENABLE_BUTTON = 3;
@@ -101,7 +101,7 @@ int main() {
 		false,// no error bit
 		true  // shift to eight bits
 	);
-	adc_set_clkdiv(24000);
+	adc_set_clkdiv(2400);
 	
 	// initialize the DMA for the ADC
 	dma_chan = dma_claim_unused_channel(false);
