@@ -140,7 +140,7 @@ int main() {
 	uint in_pwm_slice = pwm_gpio_to_slice_num(IN1);
 	uint in1_pwm_channel = pwm_gpio_to_channel(IN1);
 	uint in2_pwm_channel = pwm_gpio_to_channel(IN2);
-	pwm_set_wrap(in_pwm_slice, * 20);
+	pwm_set_wrap(in_pwm_slice, 128 * 20);
 	pwm_set_chan_level(in_pwm_slice, in1_pwm_channel, 0);
 	pwm_set_chan_level(in_pwm_slice, in2_pwm_channel, 0);
 
