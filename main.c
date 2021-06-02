@@ -166,9 +166,15 @@ int main() {
 	while (true) {
 		// state machine for enabling the driver via a button on the Breadboard
 		button_state = gpio_get(ENABLE_BUTTON);
+		sleep_ms(10);
+		button_last_state = button_state;
+		button_state = gpio_get(ENABLE_BUTTON);
 		if (button_state && !(button_last_state)) {
-			sleep_ms(10);
-			button_last_state = button_state;
+			if (motor_elabeld) {
+				printf("disabling motor");
+			} else {
+				printf("enabling motor");
+			}
 			motor_elabeld != motor_elabeld;
 			state_change = true;
 		}
