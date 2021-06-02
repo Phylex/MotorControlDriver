@@ -145,7 +145,7 @@ int main() {
 	uint in_pwm_slice = pwm_gpio_to_slice_num(IN1);
 	uint in1_pwm_channel = pwm_gpio_to_channel(IN1);
 	uint in2_pwm_channel = pwm_gpio_to_channel(IN2);
-	pwm_set_wrap(in_pwm_slice, 128 * 20);
+	pwm_set_wrap(in_pwm_slice, 128 * 40);
 	pwm_set_chan_level(in_pwm_slice, in1_pwm_channel, 0);
 	pwm_set_chan_level(in_pwm_slice, in2_pwm_channel, 0);
 
@@ -199,12 +199,12 @@ int main() {
 			int pwm_val = (int)pot_setpoint - 128;
 			if (pwm_val < 0) {
 				pwm_set_chan_level(in_pwm_slice, in1_pwm_channel, 0);
-				pwm_set_chan_level(in_pwm_slice, in2_pwm_channel, ((uint16_t)(-pwm_val)) * 20);
+				pwm_set_chan_level(in_pwm_slice, in2_pwm_channel, ((uint16_t)(-pwm_val)) * 40);
 			} else if (pwm_val == 0) {
 				pwm_set_chan_level(in_pwm_slice, in1_pwm_channel, 0);
 				pwm_set_chan_level(in_pwm_slice, in2_pwm_channel, 0);
 			} else if (pwm_val > 0) {
-				pwm_set_chan_level(in_pwm_slice, in1_pwm_channel, ((uint16_t)pwm_val) * 20);
+				pwm_set_chan_level(in_pwm_slice, in1_pwm_channel, ((uint16_t)pwm_val) * 40);
 				pwm_set_chan_level(in_pwm_slice, in2_pwm_channel, 0);
 			}
 			printf("PWM set to %f\%\n", (float)pwm_val*(100./128.));
