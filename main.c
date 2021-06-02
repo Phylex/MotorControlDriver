@@ -170,7 +170,11 @@ int main() {
 		button_last_state = button_state;
 		button_state = gpio_get(ENABLE_BUTTON);
 		if (button_state && !(button_last_state)) {
-			motor_elabeld != motor_elabeld;
+			if (motor_elabeld) {
+				motor_elabeld = false;
+			} else {
+				motor_elabeld = true;
+			}
 			state_change = true;
 		}
 		if (state_change) {
